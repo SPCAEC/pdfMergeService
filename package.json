@@ -1,15 +1,12 @@
 {
-  "name": "pdf-merge-service",
+  "name": "pantry-pdf-renderer",
   "version": "1.0.0",
-  "description": "Fast serverless PDF merge service using pdf-lib for SPCA applications",
-  "type": "module",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2",
-    "pdf-lib": "^1.17.1"
+    "express": "^4.21.0",
+    "puppeteer": "^24.0.0"
   }
 }
