@@ -133,7 +133,7 @@ async function launchBrowser() {
 /**
  * Renders HTML string to a PDF buffer.
  */
-async function renderHtmlToPdfBuffer(html) {
+async function renderHtmlToPdfBytes(html) {
   let browser;
 
   try {
@@ -221,13 +221,14 @@ app.post('/render-pdf', requireAuth, async (req, res) => {
   const fileName = sanitizeFileName(req.body.fileName);
 
   try {
-    const pdfBuffer = await renderHtmlToPdfBuffer(html);
-
+    const pdfBytes = await renderHtmlToPdfBuffer(html);
+    const pdfBuffer = Buffer.from(pdfBytes);
+    
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', String(pdfBuffer.length));
     res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
-
-    return res.status(200).send(pdfBuffer);
+    
+    return res.status(200).end(pdfBuffer);
   } catch (err) {
     console.error('render-pdf failed:', err);
 
